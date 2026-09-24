@@ -141,7 +141,7 @@ var ACHAT = "https://thibaudlepan4.gumroad.com/l/examen-civique-2026";
       });
       melanger(theme.s).slice(0, ligne[2]).forEach(function (s) {
         var ordre = melanger([0, 1, 2, 3]);
-        questions.push({ theme: theme.nom + ', mise en situation', t: s.t,
+        questions.push({ theme: theme.nom + ', mise en situation', situation: true, t: s.t,
                          props: ordre.map(function (i) { return s.p[i]; }),
                          bonne: ordre.indexOf(s.k), x: s.x, s: s.s, u: '' });
       });
@@ -175,11 +175,15 @@ var ACHAT = "https://thibaudlepan4.gumroad.com/l/examen-civique-2026";
     if (rendue) { return; }
     rendue = true;
     clearInterval(minuterie);
-    var justes = 0, ratees = [];
+    var justes = 0, situations = 0, ratees = [];
     questions.forEach(function (q, i) {
       var coche = document.querySelector('input[name="q' + i + '"]:checked');
       var donnee = coche ? parseInt(coche.value, 10) : -1;
-      if (donnee === q.bonne) { justes++; return; }
+      if (donnee === q.bonne) {
+        justes++;
+        if (q.situation) { situations++; }
+        return;
+      }
       ratees.push('<div class="q"><p class="num">Question ' + (i + 1) + ' · ' + echapper(q.theme) +
         '</p><p class="enonce">' + echapper(q.t) + '</p><p class="rate">' +
         (donnee < 0 ? 'Sans réponse.' : '<b>Votre réponse.</b> ' + echapper(q.props[donnee])) +
@@ -187,18 +191,29 @@ var ACHAT = "https://thibaudlepan4.gumroad.com/l/examen-civique-2026";
         '</p>' + (q.s ? '<p class="source">Source, ' + echapper(q.s) + '</p>' : '') +
         (q.u ? '<p><a href="' + q.u + '">La question et sa preuve</a></p>' : '') + '</div>');
     });
+    var perdues = 12 - situations;
     var bilan = '<h2>' + justes + ' bonnes réponses sur 40</h2><p class="verdict">' +
       (justes >= 32 ? 'Réussi, le seuil est de 32.' :
-        'Pas encore, il en manque ' + (32 - justes) + ' pour atteindre 32.') + '</p>';
+        'Pas encore, il en manque ' + (32 - justes) + ' pour atteindre 32.') + '</p>' +
+      '<p>Connaissances, ' + (justes - situations) + ' sur 28. Mises en situation, ' +
+      situations + ' sur 12.</p>';
+    if (perdues >= 3) {
+      bilan += '<div class="offre"><h2>Les mises en situation vous ont coûté ' + perdues +
+        ' points</h2><p>Le ministère ne publie aucune de ces questions. Le livre en corrige ' +
+        'quarante, sur les cinq thèmes, chacune avec le texte officiel qui tranche, et toutes ' +
+        'les questions de connaissance avec leur preuve. EPUB et PDF à imprimer.</p>' +
+        '<p><a class="bouton" href="' + ACHAT + '">Voir le livre, 9,90 EUR</a></p></div>';
+    } else {
+      bilan += '<div class="offre"><h2>Réviser tout le programme hors connexion</h2><p>Le livre ' +
+        'réunit toutes les questions officielles corrigées avec leur preuve, et quarante mises en ' +
+        'situation avec leur corrigé, en EPUB et en PDF à imprimer.</p><p><a class="bouton" href="' +
+        ACHAT + '">Voir le livre, 9,90 EUR</a></p></div>';
+    }
     if (ratees.length) {
-      bilan += '<p>Les ' + ratees.length + ' questions à revoir, avec la bonne réponse et ' +
+      bilan += '<h2>Les ' + ratees.length + ' questions à revoir</h2><p>Avec la bonne réponse et ' +
         'le texte qui la fonde.</p>' + ratees.join('');
     }
-    bilan += '<div class="offre"><h2>Réviser tout le programme hors connexion</h2><p>Le livre ' +
-      'réunit toutes les questions officielles corrigées avec leur preuve, et quarante mises en ' +
-      'situation avec leur corrigé, en EPUB et en PDF à imprimer.</p><p><a class="bouton" href="' +
-      ACHAT + '">Voir le livre, 9,90 EUR</a></p></div>' +
-      '<p><a href="">Refaire un examen blanc</a></p>';
+    bilan += '<p><a href="">Refaire un examen blanc</a></p>';
     document.getElementById('epreuve').hidden = true;
     var resultat = document.getElementById('resultat');
     resultat.innerHTML = bilan;
