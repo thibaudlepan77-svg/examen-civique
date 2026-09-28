@@ -14,6 +14,10 @@ Le site : https://thibaudlepan77-svg.github.io/examen-civique/
 - [Examen blanc, naturalisation](https://thibaudlepan77-svg.github.io/examen-civique/examen-blanc-naturalisation.html)
 - [Mises en situation corrigées](https://thibaudlepan77-svg.github.io/examen-civique/mises-en-situation.html)
 
+## Les démarches
+
+- [S'inscrire à l'examen civique, prix, centres, jour J, résultat et dispenses](https://thibaudlepan77-svg.github.io/examen-civique/inscription-examen-civique.html), chaque point avec la page officielle qui le dit
+
 ## Réviser par thème
 
 - [Principes et valeurs de la République](https://thibaudlepan77-svg.github.io/examen-civique/theme-principes-et-valeurs-de-la-republique.html)
@@ -21,6 +25,11 @@ Le site : https://thibaudlepan77-svg.github.io/examen-civique/
 - [Droits et devoirs](https://thibaudlepan77-svg.github.io/examen-civique/theme-droits-et-devoirs.html)
 - [Histoire, géographie et culture](https://thibaudlepan77-svg.github.io/examen-civique/theme-histoire-geographie-et-culture.html)
 - [Vivre dans la société française](https://thibaudlepan77-svg.github.io/examen-civique/theme-vivre-dans-la-societe-francaise.html)
+
+## In English
+
+- [How to register for the French civic exam, price, centres and results](https://thibaudlepan77-svg.github.io/examen-civique/en/french-civic-exam-registration.html)
+- [All the official questions answered in English, one page each](https://thibaudlepan77-svg.github.io/examen-civique/en/questions.html)
 
 Les pages sont générées à partir des listes publiées par le ministère de
 l'Intérieur. Une erreur repérée se signale dans les issues de ce dépôt.
